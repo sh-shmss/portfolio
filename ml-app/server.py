@@ -1,32 +1,47 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
 from json import dumps
 from flask_jsonpify import jsonify
+from sklearn.externals import joblib
+import json
+
+loaded_model = joblib.load('language_detector.pkl')
+target_names = ['Arabic', 'German', 'English', 'Spanish', 'French', 'Italian',
+                'Japanese', 'Dutch', 'Polish', 'Portugese', 'Russian']
 
 app = Flask(__name__)
 api = Api(app)
 
 CORS(app)
 
+
 @app.route("/")
 def hello():
-    return jsonify({'text':'Hello World!'})
-
-class Employees(Resource):
-    def get(self):
-        return {'employees': [{'id':1, 'name':'Balram'},{'id':2, 'name':'Tom'}]}
-
-class Employees_Name(Resource):
-    def get(self, employee_id):
-        print('Employee id:' + employee_id)
-        result = {'data': {'id':1, 'name':'Balram'}}
-        return jsonify(result)
+    return {'text': 'Hellow, World!'}
 
 
-api.add_resource(Employees, '/employees') # Route_1
-api.add_resource(Employees_Name, '/employees/<employee_id>') # Route_3
+class Text:
+    def __init__(self, language):
+        self.language = language
+
+
+@app.route("/prediction", methods=['GET', 'POST'])
+def predict():
+    data = request.data
+    sentence = json.loads(data)
+    sentence = sentence['text']
+    result = loaded_model.predict([sentence])
+    prediction = target_names[result[0]]
+    print(prediction)
+    Text.language = prediction
+    return data
+
+
+@app.route("/result")
+def result():
+    return {'text': Text.language}
 
 
 if __name__ == '__main__':
-     app.run(port=5002)
+    app.run(port=5002, debug=True)
