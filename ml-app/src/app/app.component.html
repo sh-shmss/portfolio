@@ -7,22 +7,23 @@
     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
 
-<mat-tab-group>
-  <mat-tab label="Enter your sentence:">
-    <div>
-      <form (ngSubmit)="postInput();getPrediction()" #myForm="ngForm">
-        <mat-form-field>
-          <input matInput placeholder="Once upon a ..." id="firstname" [(ngModel)]=" sentence" name="sentence">
-        </mat-form-field>
-        <br>
-        <p>
-          <button mat-raised-button>Submit</button> &nbsp;
-          <button mat-raised-button (click)="myForm.reset()">Reset</button>
-        </p>
-      </form>
-    </div>
-  </mat-tab>
-  <mat-tab label="Prediction"> {{result}} </mat-tab>
-</mat-tab-group>
+<div>
+  <form (blur)="postInput(); myForm.reset();" #myForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Once upon a ..." id="firstname" [(ngModel)]=" sentence" name="sentence">
+    </mat-form-field>
+    <br>
+    <p>
+      <button mat-raised-button type="submit" >Send to the model</button> &nbsp;
+    </p>
+  </form>
+</div>
+
+<div>
+    <p>
+      <button mat-button (click)="getPrediction()">Show the prediction</button>
+      {{result}}
+    </p>
+</div>
 
 <router-outlet></router-outlet>

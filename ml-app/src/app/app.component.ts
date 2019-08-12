@@ -12,14 +12,11 @@ export class AppComponent {
   @Input() sentence: string;
 
   serverData: JSON;
-  public result;
+  public result = "";
   public prediction
 
   onSubmit(){
-  // this._myService.addUsers (this.firstName , this.lastName, this.nickName, this.email, this.bookClub);
-  // this.router.navigate(['/listUsers']);
-  // window.location.replace('/listUsers'); //I referred to https://developer.mozilla.org/en-US/docs/Web/API/Location/reload to find this method.
-  }
+    }
 
   constructor(private httpClient: HttpClient){
 
@@ -30,9 +27,13 @@ export class AppComponent {
     // this.postInput();
   }
 
-  publishResult(obj){
-    this.result=obj.text;
-    console.log(obj);
+  // publishResult(obj){
+  //   this.result=obj.text;
+  //   console.log(obj);
+  // }
+
+  showResult(result){
+  this.result=result;
   }
 
   // getResults(){
@@ -60,7 +61,7 @@ export class AppComponent {
     this.httpClient.get('http://127.0.0.1:5002/result').subscribe(data=>{
       this.prediction = data as JSON},
       err => console.error(err),
-      () => (console.log(this.prediction.text)),
+      () => (this.showResult(this.prediction.text)),
 
     )
   }

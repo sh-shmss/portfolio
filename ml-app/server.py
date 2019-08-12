@@ -23,7 +23,7 @@ def hello():
 
 class Text:
     def __init__(self, language):
-        self.language = language
+        self.language = None
 
 
 @app.route("/prediction", methods=['GET', 'POST'])
