@@ -1,4 +1,4 @@
-import { Component,OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -13,27 +13,25 @@ export class AppComponent {
 
   serverData: JSON;
   public result = "";
-  public prediction
+  public prediction;
+  public sent;
+  languages = ['Arabic', 'German', 'English', 'Spanish', 'French', 'Italian',
+                  'Japanese', 'Dutch', 'Polish', 'Portugese', 'Russian']
 
-  onSubmit(){
-    }
+  onSubmit() {
+    this.createEmployee();
+    // this.getAsyncData()
+  }
 
-  constructor(private httpClient: HttpClient){
+  constructor(private httpClient: HttpClient) {
 
   }
 
-  ngOnInit(){
-    // this.getResults();
-    // this.postInput();
+  ngOnInit() {
   }
 
-  // publishResult(obj){
-  //   this.result=obj.text;
-  //   console.log(obj);
-  // }
-
-  showResult(result){
-  this.result=result;
+  showResult(result) {
+    this.result = result;
   }
 
   // getResults(){
@@ -46,11 +44,11 @@ export class AppComponent {
   // }
 
 
-  postInput(){
+  postInput() {
     console.log('You submitted: ' + this.sentence);
     this.httpClient.post('http://127.0.0.1:5002/prediction', {
-        text: this.sentence
-      }).subscribe(res=>{console.log()},
+      text: this.sentence
+    }).subscribe(res => { console.log() },
       err => console.error(err),
       // () => (console.log('Data sent to backend successfully!')),
 
@@ -58,12 +56,23 @@ export class AppComponent {
   }
 
   getPrediction() {
-    this.httpClient.get('http://127.0.0.1:5002/result').subscribe(data=>{
-      this.prediction = data as JSON},
+    this.httpClient.get('http://127.0.0.1:5002/result').subscribe(data => {
+      this.prediction = data as JSON
+    },
       err => console.error(err),
       () => (this.showResult(this.prediction.text)),
 
     )
   }
+
+  //
+  async createEmployee() {
+    this.sent = await this.httpClient.post('http://127.0.0.1:5002/prediction', {
+      text: this.sentence
+    }).toPromise();
+    await this.getPrediction();
+  }
+
+  //
 
 }

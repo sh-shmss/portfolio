@@ -1,8 +1,5 @@
-from flask import Flask, request, render_template
-from flask_cors import CORS, cross_origin
-from flask_restful import Resource, Api
-from json import dumps
-from flask_jsonpify import jsonify
+from flask import Flask, request
+from flask_cors import CORS
 from sklearn.externals import joblib
 import json
 
@@ -11,7 +8,6 @@ target_names = ['Arabic', 'German', 'English', 'Spanish', 'French', 'Italian',
                 'Japanese', 'Dutch', 'Polish', 'Portugese', 'Russian']
 
 app = Flask(__name__)
-api = Api(app)
 
 CORS(app)
 

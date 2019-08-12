@@ -1,0 +1,25 @@
+#Use python as base image
+FROM python:3.5-slim
+
+#Use working directory /app
+WORKDIR /app
+
+#Copy all the content of current directory to /app
+ADD . /app
+
+#Installing required packages
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN npm install
+RUN npm install -g @angular/cli@7.3.9
+RUN npm install --save @angular/material @angular/cdk @angular/animations
+
+#Open port 5002
+EXPOSE 5002
+
+#Set environment variable
+ENV NAME OpentoAll
+
+#Run Python script
+CMD ["python","app.py"]
+
+CMD ng serve --host 0.0.0.0
