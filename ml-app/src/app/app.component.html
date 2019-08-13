@@ -2,8 +2,6 @@
   <p>
     This is an online language detector tool.
   </p>
-  <!-- <img width="300" alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="> -->
 </div>
 <div>
   <form (ngSubmit)="onSubmit()" #myForm="ngForm">
@@ -15,7 +13,7 @@
       <button mat-raised-button type="submit">Detect</button> &nbsp;
     </p>
   </form>
-  <button mat-raised-button (click)="myForm.reset()">Reset</button>
+  <button mat-raised-button (click)="myForm.reset(); resultReset()">Reset</button>
 </div>
 <div>
   <p>Prediction: {{result}}</p>
@@ -27,7 +25,7 @@
     <mat-card-subtitle>* The longer the text the more accurate the prediction will be.</mat-card-subtitle>
     <mat-card-subtitle>* This is a development zone. Currently, the following languages are supported:</mat-card-subtitle>
     <mat-card-subtitle>* {{languages}}</mat-card-subtitle>
-    <mat-card-subtitle><a href ="https://github.com/sh-shmss/ml-deployment">Source code </a> </mat-card-subtitle>
+    <mat-card-subtitle><a href="https://github.com/sh-shmss/ml-deployment">Source code </a> </mat-card-subtitle>
 
   </mat-card>
 </div>

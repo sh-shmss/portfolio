@@ -1,7 +1,8 @@
+
 version: "3"
 services:
   frontend:
-    image: ml-app
+    image: frontend-angular
     build:
       context: ./ml-app
       dockerfile: Dockerfile
@@ -9,7 +10,7 @@ services:
     volumes:
       - ./ml-app/src:/app/src # for watching files
     ports:
-      - "8080:8080"
+      - "4200:4200"
   backend:
     image: backend-flask
     build:

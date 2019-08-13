@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import json
@@ -20,17 +20,19 @@ class Text:
 
 @app.route("/")
 def hello():
-    return 'Hellow, World!'
+    # return {'text': 'Hellow, World!'}
+    return jsonify({'text': 'Hello, World!'})
 
 
 @app.route("/prediction", methods=['GET', 'POST'])
 def predict():
-    data = request.data
-    sentence = json.loads(data)
-    sentence = sentence['text']
+    # data = request.data
+    data = request.get_json()
+    # sentence = json.loads(data)
+    sentence = data['text']
     result = loaded_model.predict([sentence])
     prediction = target_names[result[0]]
-    print(prediction)
+    # print(prediction)
     Text.language = prediction
     return data
 
@@ -38,6 +40,7 @@ def predict():
 @app.route("/result")
 def result():
     return {'text': Text.language}
+    # return {'text': 'hello there'}
 
 
 if __name__ == '__main__':
