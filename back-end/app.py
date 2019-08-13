@@ -1,25 +1,26 @@
 from flask import Flask, request
 from flask_cors import CORS
-from sklearn.externals import joblib
+import joblib
 import json
 
-loaded_model = joblib.load('language_detector.pkl')
-target_names = ['Arabic', 'German', 'English', 'Spanish', 'French', 'Italian',
-                'Japanese', 'Dutch', 'Polish', 'Portugese', 'Russian']
 
 app = Flask(__name__)
 
 CORS(app)
 
-
-@app.route("/")
-def hello():
-    return {'text': 'Hellow, World!'}
+loaded_model = joblib.load('language_detector.pkl')
+target_names = ['Arabic', 'German', 'English', 'Spanish', 'French', 'Italian',
+                'Japanese', 'Dutch', 'Polish', 'Portugese', 'Russian']
 
 
 class Text:
     def __init__(self, language):
         self.language = None
+
+
+@app.route("/")
+def hello():
+    return 'Hellow, World!'
 
 
 @app.route("/prediction", methods=['GET', 'POST'])
@@ -40,4 +41,4 @@ def result():
 
 
 if __name__ == '__main__':
-    app.run(port=5002, debug=True)
+    app.run(host='0.0.0.0', debug=True)

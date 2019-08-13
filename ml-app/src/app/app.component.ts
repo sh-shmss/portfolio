@@ -46,7 +46,7 @@ export class AppComponent {
 
   postInput() {
     console.log('You submitted: ' + this.sentence);
-    this.httpClient.post('http://127.0.0.1:5002/prediction', {
+    this.httpClient.post('http://0.0.0.0:5000/prediction', {
       text: this.sentence
     }).subscribe(res => { console.log() },
       err => console.error(err),
@@ -56,7 +56,7 @@ export class AppComponent {
   }
 
   getPrediction() {
-    this.httpClient.get('http://127.0.0.1:5002/result').subscribe(data => {
+    this.httpClient.get('http://0.0.0.0:5000/result').subscribe(data => {
       this.prediction = data as JSON
     },
       err => console.error(err),
@@ -67,7 +67,7 @@ export class AppComponent {
 
   //
   async createEmployee() {
-    this.sent = await this.httpClient.post('http://127.0.0.1:5002/prediction', {
+    this.sent = await this.httpClient.post('http://0.0.0.0:5000/prediction', {
       text: this.sentence
     }).toPromise();
     await this.getPrediction();

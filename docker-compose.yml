@@ -1,0 +1,22 @@
+version: "3"
+services:
+  frontend:
+    image: ml-app
+    build:
+      context: ./ml-app
+      dockerfile: Dockerfile
+    container_name: "frontend-app"
+    volumes:
+      - ./ml-app/src:/app/src # for watching files
+    ports:
+      - "8080:8080"
+  backend:
+    image: backend-flask
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: "backend-app"
+    volumes:
+        - ./back-end:/app # for watching files
+    ports:
+      - "5000:5000" # if changed, please change port in `frontend/proxy.conf.dev.json`
