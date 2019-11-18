@@ -1,0 +1,25 @@
+<div style="text-align:left">
+  <p>
+    Enter your text to use the language detector tool:
+  </p>
+</div>
+<div>
+  <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <mat-form-field [style.columnWidth.px]=350>
+      <textarea required [(ngModel)]=" sentence" name="sentence" matInput [style.height.px]="200"></textarea>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button type="submit">Detect</button> &nbsp;
+    {{result}}
+  </form>
+  <br>
+  <button mat-raised-button (click)="myForm.reset(); resultReset()">Reset</button>
+</div>
+
+<br>
+<div style="width:350px ;">
+  Notes:
+  The longer the text, the more accurate the prediction will be. This is a development zone. Supported languages:
+  Arabic, German, English, Spanish, French, Italian, Japanese, Dutch, Polish, Portugese, Russian.
+</div>
+<router-outlet></router-outlet>

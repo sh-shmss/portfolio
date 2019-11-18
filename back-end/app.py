@@ -21,10 +21,10 @@ class Text:
 @app.route("/")
 def hello():
     # return {'text': 'Hellow, World!'}
-    return jsonify({'text': 'Hello, World!'})
+    return jsonify({'server status': 'running'})
 
 
-@app.route("/prediction", methods=['GET', 'POST'])
+@app.route("/predict", methods=['GET', 'POST'])
 def predict():
     # data = request.data
     data = request.get_json()
@@ -32,15 +32,9 @@ def predict():
     sentence = data['text']
     result = loaded_model.predict([sentence])
     prediction = target_names[result[0]]
-    # print(prediction)
-    Text.language = prediction
-    return data
-
-
-@app.route("/result")
-def result():
-    return {'text': Text.language}
-    # return {'text': 'hello there'}
+    # # print(prediction)
+    # Text.language = prediction
+    return jsonify({'text': prediction})
 
 
 if __name__ == '__main__':

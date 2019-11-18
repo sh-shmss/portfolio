@@ -1,0 +1,10 @@
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>dashboard</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/language-detector">
+      <mat-icon>language</mat-icon>Language Detector
+    </button>
+  </mat-menu>
+</div>
